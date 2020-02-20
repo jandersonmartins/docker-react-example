@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  test-ci:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: ['yarn', 'test']
+    environment:
+      - CI=true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  production:
+    build: .
+    restart: always
+    ports:
+      - 4000:80
