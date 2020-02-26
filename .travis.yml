@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t jandersonmartins/docker-react-example - Dockerfile.dev .
+
+script:
+  - docker run -e CI=true jandersonmartins/docker-react-example yarn test
